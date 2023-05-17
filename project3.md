@@ -35,7 +35,8 @@ I create a new file (index.js) using the command `touch index.js`
 I install the dotenv module using the command `npm install dotenv`
 
 My code is pasted in the index.js file which can be seen below: 
-'''
+
+```
 const express = require('express');
 require('dotenv').config();
 
@@ -57,15 +58,15 @@ app.listen(port, () => {
 console.log(`Server running on port ${port}`)
 });
 
-'''
+```
 
-Within the code, port 5000 has been specified in the code which is where the app will be listening on. 
+Within the code, port 5000 has been specified in the code.
 
-Now start our server to see if it works. Within the same directory as my index.js I run the command - `node index.js`
+Now I start the server to see if it works. Within the same directory as my index.js I run the command - `node index.js`
 
 Remember the port has to be opened in EC2 security groups to allow access to the port 5000. 
 
-The server is accessed on 'http://<PublicIP-or-PublicDNS>:5000'
+The server is accessed on 'http://PublicIP:5000'
 
 
 ### Routes
@@ -81,6 +82,7 @@ Each task will be associated with some particular endpoint and will use differen
 For each task, we need to create routes that will define various endpoints that the To-do app will depend on. So let us create a folder routes using the command - `mkdir routes`
 
 Within the routes folder, I create a file called api.js and paste the code below in it.
+
 ```
 const express = require ('express');
 const router = express.Router();
@@ -179,13 +181,14 @@ module.exports = router;
 mLab is used to access MongoDB database as a service solution. The MongoDB service is set up and running. 
 
 In the index.js file, we specified process.env to access environment variables, so the file will be created now. 
-In my todo directory, the file is created using the command `touch .env` and the connection string to access the database is pasted in it 'DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority''
+In my todo directory, the file is created using the command `touch .env` and the connection string to access the database is pasted in it 'DB = 'mongodb+srv://username:password@network-address/dbname?retryWrites=true&w=majority''
 
-The <username>, <password>, <network-address> and <database> were updated according to my setup.
+The username, password, network-address and database were updated according to my setup.
 
 Now, I'll be updating the index.js file to reflect the use of the .env so that Node.js can connect to the database.
 
 The index.js file is updated with the code below:
+
 ```
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -225,9 +228,11 @@ app.listen(port, () => {
 console.log(`Server running on port ${port}`)
 });
 ```
+
 The server is stated using the command `node index.js` and we can see it is connected to the database successfully. 
 
 ![database_conn](./images/database_conn.PNG)
+
 
 ### Backend Testing with Postman
 
@@ -242,6 +247,7 @@ The following images show the results of our API tests (GET, POST and DELETE)
 ![DEL_req](./images/delete_req.PNG)
 
 Now I have made sure that the backend supports all 3 operations we want: 
+
 1. Display a list of tasks – HTTP GET request
 2. Add a new task to the list – HTTP POST request
 3. Delete an existing task from the list – HTTP DELETE request
@@ -260,27 +266,30 @@ Before running the app the following dependencies are installed:
 
 In the Todo folder, the package.json file is updated with the following code with the key value "scripts".
 
-'''
+```
 "scripts": {
 "start": "node index.js",
 "start-watch": "nodemon index.js",
 "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
 },
 
-'''
+```
 
-In order to test my application, I go to the run the command `npm run dev` in the todo directory and the application is run on port 3000.
+In order to test my application, I go to run the command `npm run dev` in the todo directory and the application is run on port 3000.
 
-In the image below the react app can be seen 
+In the image below the react test app can be seen;
+
+
 ![react_web](./images/react_web.PNG)
 
-### Creating the React Components
-One of the advantages of react is that it makes use of components, which are reusable and also makes code modular. For the Todo app, there will be two stateful components and one stateless component.
+### Creating The React Components
+One of the advantages of react is that it makes use of components, which are reusable and also makes the code modular. For the Todo app, there will be two stateful components and one stateless component.
 
 Within my src folder (Todo/client/src), I make the components folder. Within the components directory I create 3 files "Input.js, ListTodo.js, and Todo.js"
 
 Within the Input.js I write the following code inside it 
-'''
+
+```
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -327,13 +336,13 @@ return (
 
 export default Input
 
+```
 
-'''
-
-To make use of axios, which is a promise based HTTP client for the browser and node.js, I run `npm install axios` in the clients folder
+To make use of axios, which is a promise based HTTP client for the browser and node.js, I run `npm install axios` in the clients folder.
 
 In the components directory, the following code is written in:
-'''
+
+```
 import React from 'react';
 
 const ListTodo = ({ todos, deleteTodo }) => {
@@ -360,13 +369,12 @@ return (
 }
 
 export default ListTodo
+```
 
-
-'''
 
 Then in the Todo.js, the follwing code is written;
 
-'''
+```
 import React, {Component} from 'react';
 import axios from 'axios';
 
@@ -422,7 +430,7 @@ let { todos } = this.state;
 }
 
 export default Todo;
-'''
+```
 
 Adjusting the react code, the following code is updated in the App.js file in the src folder
 
