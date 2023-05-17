@@ -17,6 +17,8 @@ The installation of Node.js on the server is done using the command below:
 `sudo apt-get install -y nodejs` 
 
 The node and npm version installed can be seen in the picture below:
+
+
 ![install_confirmation](./images/npm%26nodeversion.PNG)
 
 ### To-do App Code Setup
